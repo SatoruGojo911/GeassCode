@@ -5,10 +5,11 @@ const CodeEditor = ({ language }) => {
     const [code, setCode] = useState("")
   return (
     <div>
+    
       <div
         style={{
           width: "60%",
-          height: "85vh",
+          height: "92vh",
           overflow: "hidden",
           boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
           background: "#1e1e1e",
