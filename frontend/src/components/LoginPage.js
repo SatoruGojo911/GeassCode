@@ -1,31 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import "./LoginPage.css"; 
+import "../css/LoginPage.css"; 
+import AuthContext from '../context/AuthContext'
 
-const LoginPage = () => {
+const LoginPage = () => { 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const {loginUser} = useContext(AuthContext)
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    const response = await fetch("http://localhost:8000/api/token/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      localStorage.setItem("access_token", data.access);
-      localStorage.setItem("refresh_token", data.refresh);
-      navigate("/");
-    } else {
-      setError("Invalid credentials");
-    }
+    email.length > 0 && loginUser(email, password)
   };
 
   return (
