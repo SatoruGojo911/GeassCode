@@ -11,4 +11,5 @@ urlpatterns = [
     path('register/', views.RegisterView.as_view(), name='auth_register'),
     path('test/', views.testEndPoint, name='test'),
     path('', views.getRoutes),
+    path("generate/", views.generate_response, name="generate_response"),
 ]
