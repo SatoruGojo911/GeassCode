@@ -1,15 +1,17 @@
-import React from "react";
-import AnimatedButton from "./AnimatedButton";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+import "../css/Header.css";
 
 const Header = ({ setLanguage }) => {
+  const { user, logoutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   return (
-    <header style={styles.header}>
-      
-      <div style={styles.leftContainer}>
-        <h1 style={styles.title}>CodeGeass</h1>
-        <select
-          onChange={(e) => setLanguage(e.target.value)}
-          style={styles.dropdown}>
+    <header className="header">
+      <div className="left-container">
+        <h1 className="title">CodeGeass</h1>
+        <select className="dropdown" onChange={(e) => setLanguage(e.target.value)}>
           <option value="javascript">JavaScript</option>
           <option value="python">Python</option>
           <option value="java">Java</option>
@@ -18,51 +20,18 @@ const Header = ({ setLanguage }) => {
         </select>
       </div>
 
-      
-      <div style={styles.rightContainer}>
-        <AnimatedButton />
+      <div className="right-container">
+        {user ? (
+          <>
+            <span className="username">{user.username}</span>
+            <button className="button logout-btn" onClick={logoutUser}>Logout</button>
+          </>
+        ) : (
+          <button className="button login-btn" onClick={() => navigate("/login")}>Login / Sign Up</button>
+        )}
       </div>
     </header>
   );
-};
-
-// Styling
-const styles = {
-  header: {
-    display: "flex",
-    justifyContent: "space-between", 
-    
-    borderRadius: "10px",
-    margin:"10px",
-    background: "#1e1e1e",
-    color: "white",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 1)",
-    width: "99%",
-  },
-  leftContainer: {
-    display: "flex",
-    alignItems: "center",
-    gap: "15px", 
-  },
-  title: {
-    margin: "10px",
-    fontSize: "20px",
-    
-  },
-  dropdown: {
-    padding: "6px 10px",
-    borderRadius: "4px",
-    border: "none",
-    fontSize: "14px",
-    background: "#333",
-    color: "white",
-    cursor: "pointer",
-  },
-  rightContainer: {
-    display: "flex",
-    alignItems: "center",
-    margin:"20px",
-  },
 };
 
 export default Header;
