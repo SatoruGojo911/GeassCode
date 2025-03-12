@@ -77,3 +77,32 @@ def userProfile(request):
         fullname = user_profile.full_name if user_profile else 'Anonymous'
         bio = user_profile.bio
         return Response({'fullname': fullname,'bio' : bio }, status=status.HTTP_200_OK)
+    
+
+
+## gemeni ##
+from django.conf import settings
+import google.generativeai as genai
+import json
+
+genai.configure(api_key=settings.GEMINI_API_KEY)
+
+
+@api_view(['POST'])
+def generate_response(request):
+    try:
+        data = json.loads(request.body)
+        prompt = data.get("prompt", "")
+        code_snippet = data.get("code", "")
+        
+        if not prompt:
+            return JsonResponse({"error": "No prompt provided"}, status=400)
+        
+        full_prompt = f"{prompt}\n\nHere is the code snippet:\n\n{code_snippet}" if code_snippet else prompt
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content(full_prompt)
+        
+        return JsonResponse({"response": response.text})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+    return JsonResponse({"error": "Invalid request"}, status=400)
