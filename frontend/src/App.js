@@ -6,7 +6,7 @@ import "./App.css";
 import SignUpPage from "./components/SignUpPage";
 import CodeAnalyzer from "./components/CodeAnalyzer";
 import Header from "./components/Header";
-
+import RunCode from "./components/RunCode";
 function App() {
   const [language, setLanguage] = useState("javascript");
   const location = useLocation();
@@ -26,6 +26,7 @@ function App() {
               </div>
               <div className="analyzer-container">
                 <CodeAnalyzer code={code} />
+                <RunCode code={code} />
               </div>
               
             </div>
