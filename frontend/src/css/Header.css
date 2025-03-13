@@ -1,76 +1,89 @@
+/* Header */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@400;600&display=swap');
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 10px;
-    margin: 10px;
-    background: #1e1e1e;
-    color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
-    width: 97%;
-    padding: 10px;
-  }
-  
-  .left-container {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .title {
-    margin: 10px;
-    font-size: 20px;
-  }
-  
-  .dropdown {
-    padding: 6px 10px;
-    border-radius: 4px;
-    border: none;
-    font-size: 14px;
-    background: #333;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .right-container {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .username {
-    font-size: 16px;
-    color: #fff;
-  }
-  
-  .button {
-    font-weight: bold;
-    letter-spacing: 0.1em;
-    border: none;
-    border-radius: 1.1em;
-    cursor: pointer;
-    color: white;
-    padding: 1em 2em;
-    margin: 20px;
-    transition: box-shadow 0.3s ease-in-out, background-color 0.1s ease-in-out, 
-                letter-spacing 0.1s ease-in-out, transform 0.1s ease-in-out;
-    box-shadow: 13px 13px 10px #1c1c1c, -13px -13px 10px #262626;
-  }
-  
-  .login-btn {
-    background-color: #11ff00;
-  }
-  
-  .logout-btn {
-    background-color: #ff0000;
-  }
-  
-  .button:hover {
-    box-shadow: 16px 16px 33px #121212, -16px -16px 33px #303030;
-  }
-  
-  .button:active {
-    box-shadow: 16px 16px 33px #121212, -16px -16px 33px #303030, rgba(255, 255, 255, 0.5) 0px 0px 30px 5px;
-    transform: scale(0.95);
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  margin: 10px auto;
+  background: #1e1e1e;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+  width: 97%;
+  padding: 5px 15px;
+}
+
+/* Left and Right Containers */
+.left-container,
+.right-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Title */
+.title {
+  font-size: 20px;
+}
+
+/* Dropdown */
+.dropdown {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: none;
+  font-size: 14px;
+  background: #333;
+  color: white;
+  cursor: pointer;
+}
+
+/* Username */
+.username {
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Buttons */
+.button {
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  border: none;
+  border-radius: 1.1em;
+  cursor: pointer;
+  color: white;
+  padding: 1em 2em;
+  transition:
+    box-shadow 0.3s ease-in-out,
+    background-color 0.1s ease-in-out,
+    letter-spacing 0.1s ease-in-out,
+    transform 0.1s ease-in-out;
+  box-shadow: 8px 8px 15px rgba(28, 28, 28, 0.7), 
+              -8px -8px 15px rgba(38, 38, 38, 0.7);
+  background-size: 200%;
+  background-position: left;
+}
+
+/* Button Variants */
+.login-btn {
+  background: linear-gradient(to right, #4000ff, #00ff40);
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.logout-btn {
+  background: linear-gradient(to right, #ff0000, #2f00ff);
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Button Hover & Active Effects */
+.button:hover {
+  box-shadow: 12px 12px 25px rgba(0, 72, 255, 0.7), 
+              -12px -12px 25px rgba(140, 255, 0, 0.7);
+  background-position: right;
+  font-size: small;
+  transition: 2s;
+}
+
+.button:active {
+  transform: scale(0.95);
+}

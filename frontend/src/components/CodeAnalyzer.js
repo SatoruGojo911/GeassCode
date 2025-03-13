@@ -1,31 +1,67 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import "../css/CodeAnalyzer.css";
 
 const CodeAnalyzer = ({ code }) => {
   const { llmCall } = useContext(AuthContext);
   const [responseText, setResponseText] = useState("");
+  const [displayText, setDisplayText] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
+    setLoading(true);
+    setResponseText("");
+    setDisplayText("");
 
-    try {
-      const response = await llmCall(
-        "Analyze the following code snippet and provide a structured, step-by-step approach to improving it. Identify any security vulnerabilities, performance inefficiencies, or coding best practices that should be followed. Instead of providing direct code solutions, outline the necessary changes and explain why they are needed. Your response should be organized into sections: Security Concerns, Performance Improvements, Best Practices, and Refactoring Suggestions. Each section should contain clear, actionable steps that a developer can follow to enhance the code while maintaining readability and maintainability.",
-        code
-      );
-      setResponseText(response.response || JSON.stringify(response));
-    } catch (error) {
-      console.error("Error calling LLM:", error);
-      setResponseText("An error occurred while analyzing the code.");
-    }
+    setTimeout(async () => {
+      try {
+        const response = await llmCall("Analyze the following code, give me steps to improve it do not give me any code to directly replace, do not make any item bold", code);
+        const fullText = response.response || JSON.stringify(response);
+        setResponseText(fullText);
+      } catch (error) {
+        console.error("Error calling LLM:", error);
+        setResponseText("An error occurred while analyzing the code.");
+      } finally {
+        setLoading(false);
+      }
+    }, 3000);
   };
-  
+
+  useEffect(() => {
+    if (responseText) {
+      setDisplayText(""); 
+      let index = 0;
+      const interval = setInterval(() => {
+        setDisplayText((prev) => prev + responseText[index]);
+        index++;
+        if (index === responseText.length) clearInterval(interval);
+      }, 10); 
+      return () => clearInterval(interval);
+    }
+  }, [responseText]);
+
   return (
     <div className="card">
-      <button className="use-geass-button" onClick={handleClick}>Use Geass</button>
-      <div className="card-info" style={{ textAlign: "left" }}>
-        <p>{responseText || "Response should appear here"}</p>
+      <div className="response-container">
+        {loading ? (
+          <div className="spinner">
+            <div className="spinnerin"></div>
+          </div>
+        ) : displayText ? (
+          <div className="styled-response">
+            {displayText.split("\n").map((line, index) => (
+              <p key={index} className={line.startsWith("**") ? "bold-text" : ""}>
+                {line}
+              </p>
+            ))}
+          </div>
+        ) : (
+          "Response should appear here"
+        )}
       </div>
+      <button className="use-geass-button" onClick={handleClick} disabled={loading}>
+        {loading ? "Loading..." : "Use Geass"}
+      </button>
     </div>
   );
 };
