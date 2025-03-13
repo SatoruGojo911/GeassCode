@@ -115,7 +115,7 @@ export const AuthProvider = ({ children }) => {
     }, [authTokens, loading]);
 
     return (
-        <AuthContext.Provider value={{ user, setUser, authTokens, setAuthTokens, registerUser, loginUser, logoutUser }}>
+        <AuthContext.Provider value={{ user, setUser, authTokens, setAuthTokens, registerUser, loginUser, logoutUser, llmCall }}>
             {loading ? null : children}
             {notification && (
                 <div className="terminal-loader">
