@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@400;600&display=swap');
 .card {
     --background: linear-gradient(to right, #001f5c 0%, #380041 100%);
-    width: 63vh;
-    height: 86vh;
+    width: 95%;
+    height: 100%;
     padding: 1px;
     border-radius: 0.7rem;
     overflow: hidden;

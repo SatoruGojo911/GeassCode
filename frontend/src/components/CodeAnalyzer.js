@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import "../css/CodeAnalyzer.css";
+import "../App.css"
 
 const CodeAnalyzer = ({ code }) => {
   const { llmCall } = useContext(AuthContext);
@@ -49,7 +50,7 @@ const CodeAnalyzer = ({ code }) => {
           </div>
         ) : displayText ? (
           <div className="styled-response">
-            {displayText.split("\n").map((line, index) => (
+            {displayText.slice(0, -9).split("\n").map((line, index) => (
               <p key={index} className={line.startsWith("**") ? "bold-text" : ""}>
                 {line}
               </p>

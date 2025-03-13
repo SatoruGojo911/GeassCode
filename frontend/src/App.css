@@ -5,29 +5,28 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
+  overflow: hidden; /* Prevents accidental scrolling */
 }
 
 /* Main Layout */
 .main-container {
   display: flex;
-  height: 88vh; 
+  flex-direction: row;
+  height: 88vh;
   width: 100%;
-  gap: 10px; 
+  gap: 10px;
   padding: 10px;
+  box-sizing: border-box; /* Prevents content from overflowing */
+  overflow: hidden;
 }
 
-/* Code Analyzer */
-.analyzer-container {
-  width: 50%;
-}
-
-/* Code Editor */
+/* Code Editor Container */
 .editor-container {
-  flex: 1;
+  flex: 1.2; /* Adjusted to give more space to the editor */
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 65%;
+  min-width: 50%;
 }
 
 /* Editor Wrapper */
@@ -38,7 +37,51 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   overflow: hidden;
-  margin: 20px;
+  margin: 10px; /* Reduced margin to avoid exceeding */
 }
 
+/* Code Analyzer Container */
+.analyzer-container {
+  flex: 1;
+  min-width: 40%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 8px;
+  overflow: auto;
+  max-height: 100%;
+}
 
+/* Responsive Design for Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .main-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .editor-container, .analyzer-container {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+/* Responsive Design for Small Screens (Phones & Small Tablets) */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    height: auto;
+    padding: 5px; /* Reduce padding to fit small screens */
+  }
+
+  .editor-container,
+  .analyzer-container {
+    width: 100%;
+    max-height: 50vh; /* Prevents excessive height usage */
+    overflow: auto; /* Allows scrolling inside each section */
+  }
+
+  .editor-wrapper {
+    margin: 5px; /* Reduce margin for better fit */
+    border-radius: 5px; /* Slightly smaller rounded corners */
+  }
+}
