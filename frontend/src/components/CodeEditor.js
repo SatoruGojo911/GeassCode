@@ -2,8 +2,7 @@ import React,{ useState} from "react";
 import Editor from "@monaco-editor/react";
 import "../App.css";
 
-const CodeEditor = ({ language }) => {
-  const [code, setCode] = useState(`// Enter your code here`);
+const CodeEditor = ({ language, code, setCode }) => {
   return (
     <div className="editor-wrapper">
       <Editor
