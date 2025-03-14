@@ -16,7 +16,7 @@ const CodeAnalyzer = ({ code }) => {
 
     setTimeout(async () => {
       try {
-        const response = await llmCall("Analyze the following code, give me steps to improve it do not give me any code to directly replace, do not make any item bold", code);
+        const response = await llmCall("Analyze the following code, give me steps to improve it do not give me any code to directly replace, do not make any item bold, make it under 100 words", code);
         const fullText = response.response || JSON.stringify(response);
         setResponseText(fullText);
       } catch (error) {
