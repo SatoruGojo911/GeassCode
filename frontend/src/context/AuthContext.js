@@ -105,6 +105,7 @@ export const AuthProvider = ({ children }) => {
             return null;
         }
     };
+    const apiKey = process.env.REACT_APP_RAPID_API_KEY;
 
     async function executeCode(languageId, sourceCode, stdin = null) {
         const submitUrl = "https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=true&wait=true&fields=*";
@@ -112,7 +113,7 @@ export const AuthProvider = ({ children }) => {
         const options = {
             method: "POST",
             headers: {
-                "x-rapidapi-key": "0be529f37amshe3fc161960d0b8ap165890jsn336b828176ec", // Add your API key here
+                "x-rapidapi-key": apiKey, // Add your API key here
                 "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
                 "Content-Type": "application/json"
             },
@@ -136,7 +137,7 @@ export const AuthProvider = ({ children }) => {
             const resultOptions = {
                 method: "GET",
                 headers: {
-                    "x-rapidapi-key": "0be529f37amshe3fc161960d0b8ap165890jsn336b828176ec", // Add your API key here
+                    "x-rapidapi-key": apiKey, // Add your API key here
                     "x-rapidapi-host": "judge0-ce.p.rapidapi.com"
                 }
             };
