@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
-import "../css/CodeAnalyzer.css";
-import "../App.css"
+import "../css/RunCode.css";
 
-const CodeAnalyzer = ({ code }) => {
+const RunCode = ({ code }) => {
   const { llmCall } = useContext(AuthContext);
   const [responseText, setResponseText] = useState("");
   const [displayText, setDisplayText] = useState("");
@@ -16,12 +15,12 @@ const CodeAnalyzer = ({ code }) => {
 
     setTimeout(async () => {
       try {
-        const response = await llmCall("Analyze the following code, give me steps to improve it do not give me any code to directly replace, do not make any item bold, make it under 100 words", code);
+        const response = await llmCall("what is the output of the code, do not write the code again", code);
         const fullText = response.response || JSON.stringify(response);
         setResponseText(fullText);
       } catch (error) {
         console.error("Error calling LLM:", error);
-        setResponseText("An error occurred while analyzing the code.");
+        setResponseText("An error occurred while running the code.");
       } finally {
         setLoading(false);
       }
@@ -42,7 +41,7 @@ const CodeAnalyzer = ({ code }) => {
   }, [responseText]);
 
   return (
-    <div className="card">
+    <div className="card run-code-container">
       <div className="response-container">
         {loading ? (
           <div className="spinner">
@@ -57,14 +56,14 @@ const CodeAnalyzer = ({ code }) => {
             ))}
           </div>
         ) : (
-          "Response should appear here"
+          "Your Output will be displayed here "
         )}
       </div>
       <button className="use-geass-button" onClick={handleClick} disabled={loading}>
-        {loading ? "Loading..." : "Use Geass"}
+        {loading ? "Loading..." : "Run Code"}
       </button>
     </div>
   );
 };
 
-export default CodeAnalyzer;
+export default RunCode;
