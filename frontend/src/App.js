@@ -15,7 +15,7 @@ function App() {
 
   return (
     <>
-      {location.pathname === "/" && <Header setLanguage={setLanguage} />}
+      {location.pathname === "/" && <Header language={language} setLanguage={setLanguage} />}
       <Routes>
         <Route
           path="/"
@@ -26,7 +26,7 @@ function App() {
               </div>
               <div className="analyzer-container">
                 <CodeAnalyzer code={code} />
-                <RunCode code={code} />
+                <RunCode code={code} language={language}/>
               </div>
               
             </div>

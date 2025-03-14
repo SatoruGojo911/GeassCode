@@ -2,8 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import "../css/RunCode.css";
 
-const RunCode = ({ code }) => {
-  const { llmCall } = useContext(AuthContext);
+const RunCode = ({ code , language}) => {
+  const { executeCode } = useContext(AuthContext);
   const [responseText, setResponseText] = useState("");
   const [displayText, setDisplayText] = useState("");
   const [loading, setLoading] = useState(false);
@@ -12,10 +12,26 @@ const RunCode = ({ code }) => {
     setLoading(true);
     setResponseText("");
     setDisplayText("");
-
+  
+    const languageMap = {
+      "c++": 52,
+      "python": 71,
+      "c": 50,
+      "java": 62,
+      "javascript": 63,
+    };
+  
+    const selectedLanguageId = languageMap[language.toLowerCase()] || null;
+  
+    if (!selectedLanguageId) {
+      setResponseText("Unsupported language.");
+      setLoading(false);
+      return;
+    }
+  
     setTimeout(async () => {
       try {
-        const response = await llmCall("what is the output of the code, do not write the code again", code);
+        const response = await executeCode(selectedLanguageId, code);
         const fullText = response.response || JSON.stringify(response);
         setResponseText(fullText);
       } catch (error) {
@@ -26,6 +42,7 @@ const RunCode = ({ code }) => {
       }
     }, 3000);
   };
+  
 
   useEffect(() => {
     if (responseText) {

@@ -93,19 +93,77 @@ export const AuthProvider = ({ children }) => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ prompt, code }),
             });
-    
+
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-    
+
             const data = await response.json();
-            return data;  // Return the response data
+            return data;
         } catch (error) {
             console.error("Error in llmCall:", error);
-            return null;  // Handle errors gracefully
+            return null;
         }
     };
-    
+
+    async function executeCode(languageId, sourceCode, stdin = null) {
+        const submitUrl = "https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=true&wait=true&fields=*";
+
+        const options = {
+            method: "POST",
+            headers: {
+                "x-rapidapi-key": "0be529f37amshe3fc161960d0b8ap165890jsn336b828176ec", // Add your API key here
+                "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                language_id: languageId,
+                source_code: btoa(sourceCode),
+                stdin: stdin ? btoa(stdin) : null,
+                base64_encoded: true
+            })
+        };
+
+        try {
+            const submitResponse = await fetch(submitUrl, options);
+            const submitResult = await submitResponse.json();
+
+            if (!submitResult.token) {
+                throw new Error("Submission failed: No token received.");
+            }
+
+            const resultUrl = `https://judge0-ce.p.rapidapi.com/submissions/${submitResult.token}?base64_encoded=true&fields=*`;
+            const resultOptions = {
+                method: "GET",
+                headers: {
+                    "x-rapidapi-key": "0be529f37amshe3fc161960d0b8ap165890jsn336b828176ec", // Add your API key here
+                    "x-rapidapi-host": "judge0-ce.p.rapidapi.com"
+                }
+            };
+
+            let resultResponse, resultData;
+            do {
+                resultResponse = await fetch(resultUrl, resultOptions);
+                resultData = await resultResponse.json();
+                if (resultData.status.id < 3) {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+            } while (resultData.status.id < 3);
+
+            const stdout = resultData.stdout ? atob(resultData.stdout) : "No output";
+            const stderr = resultData.stderr ? atob(resultData.stderr) : null;
+            const compileError = resultData.compile_output ? atob(resultData.compile_output) : null;
+
+            console.log("Output:", stdout);
+            if (stderr) console.error("Runtime Error:", stderr);
+            if (compileError) console.error("Compilation Error:", compileError);
+
+            return { stdout, stderr, compileError };
+        } catch (error) {
+            console.error("Error:", error);
+            return null;
+        }
+    }
 
     useEffect(() => {
         if (authTokens) {
@@ -115,7 +173,7 @@ export const AuthProvider = ({ children }) => {
     }, [authTokens, loading]);
 
     return (
-        <AuthContext.Provider value={{ user, setUser, authTokens, setAuthTokens, registerUser, loginUser, logoutUser, llmCall }}>
+        <AuthContext.Provider value={{ user, setUser, authTokens, setAuthTokens, registerUser, loginUser, logoutUser, llmCall, executeCode}}>
             {loading ? null : children}
             {notification && (
                 <div className="terminal-loader">
