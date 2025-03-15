@@ -126,3 +126,10 @@ npm start
 2. Open `http://localhost:3000` in your browser.
 3. Sign up or log in to access the code editor.
 4. Write and analyze code using the AI assistant.
+
+## Contribution
+Contributions are welcome! To contribute:
+1. Fork the repository.
+2. Create a new branch (`feature/new-feature`).
+3. Commit changes and push to GitHub.
+4. Open a pull request.
