@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const loginUser = async (email, password) => {
-        const response = await fetch("http://localhost:8000/api/token/", {
+        const response = await fetch("https://utsav911911.pythonanywhere.com/api/token/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
 
     const registerUser = async (email, username, password, password2) => {
         try {
-            const response = await fetch("http://localhost:8000/api/register/", {
+            const response = await fetch("https://utsav911911.pythonanywhere.com/api/register/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, username, password, password2 }),
@@ -88,7 +88,7 @@ export const AuthProvider = ({ children }) => {
 
     const llmCall = async (prompt, code) => {
         try {
-            const response = await fetch("http://localhost:8000/api/generate/", {
+            const response = await fetch("https://utsav911911.pythonanywhere.com/api/generate/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ prompt, code }),
