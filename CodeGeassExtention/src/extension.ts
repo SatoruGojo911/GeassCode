@@ -34,7 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
 
       panel.webview.html = getLoadingHTML();
 
-      const response = await axios.post("http://127.0.0.1:8000/api/generate/", requestData);
+      const response = await axios.post("https://utsav911911.pythonanywhere.com/api/generate/", requestData);
       const apiResponse = response.data.response;
 
       panel.webview.html = getWebviewContent(apiResponse);
