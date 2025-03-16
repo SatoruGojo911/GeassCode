@@ -1,4 +1,5 @@
 Link to live site : https://geass-code.vercel.app/
+Link to VsCode Extention : https://marketplace.visualstudio.com/items?itemName=CodeGeass.codegeass
  # CodeGeass: AI-Powered Code Analysis and Execution
 
 ## Overview

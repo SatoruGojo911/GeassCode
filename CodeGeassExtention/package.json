@@ -1,6 +1,7 @@
 {
   "name": "codegeass",
   "displayName": "CodeGeass",
+  "publisher": "CodeGeass",
   "description": "an extension which helps in writing code as it can give AI-generated suggestions",
   "version": "0.0.1",
   "engines": {
