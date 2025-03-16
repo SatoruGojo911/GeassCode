@@ -77,8 +77,10 @@ function getLoadingHTML(): string {
     <html>
       <head>
         <style>
+          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+          
           body {
-            font-family: Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             text-align: center;
             display: flex;
             justify-content: center;
@@ -88,62 +90,50 @@ function getLoadingHTML(): string {
             color: #ffffff;
             background: linear-gradient(to bottom, black, #1e1e1e);
           }
-          .loader-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          }
-          .configure-border-1 {
+          .loader {
+            position: relative;
             width: 50px;
             height: 50px;
-            padding: 3px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #fb5b53;
-            animation: configure-clockwise 3s ease-in-out infinite alternate;
+            border-radius: 50%;
+            background: linear-gradient(45deg, transparent, transparent 40%, #e5f403);
+            animation: glow 2s linear infinite;
           }
-          .configure-border-2 {
-            width: 50px;
-            height: 50px;
-            padding: 3px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgb(63,249,220);
-            transform: rotate(45deg);
-            animation: configure-xclockwise 3s ease-in-out infinite alternate;
+          @keyframes glow {
+            0% {
+              transform: rotate(0deg);
+              filter: hue-rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+              filter: hue-rotate(360deg);
+            }
           }
-          .configure-core {
-            width: 100%;
-            height: 100%;
-            background-color: #1d2630;
+          .loader::before {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            right: 3px;
+            bottom: 3px;
+            background: #212121;
+            border-radius: 50%;
+            z-index: 1000;
           }
-          @keyframes configure-clockwise {
-            0% { transform: rotate(0); }
-            25% { transform: rotate(90deg); }
-            50% { transform: rotate(180deg); }
-            75% { transform: rotate(270deg); }
-            100% { transform: rotate(360deg); }
-          }
-          @keyframes configure-xclockwise {
-            0% { transform: rotate(45deg); }
-            25% { transform: rotate(-45deg); }
-            50% { transform: rotate(-135deg); }
-            75% { transform: rotate(-225deg); }
-            100% { transform: rotate(-315deg); }
+          .loader::after {
+            content: "";
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            background: linear-gradient(45deg, transparent, transparent 40%, #e5f403);
+            border-radius: 50%;
+            filter: blur(30px);
           }
         </style>
       </head>
       <body>
-        <div class="loader-container">
-          <h2 style="font-family: Montserrat; color: white;">Code Geass...</h2>
-          <div class="configure-border-1">
-            <div class="configure-border-2">
-              <div class="configure-core"></div>
-            </div>
-          </div>
-        </div>
+        <div class="loader"></div>
       </body>
     </html>
   `;
@@ -158,75 +148,109 @@ function getWebviewContent(response: string): string {
     .replace(/\n/g, '<br>');
   
     return `
-    <html>
-      <head>
-        <style>
-          body {
-            font-family: Montserrat, sans-serif;
-            padding: 15px;
-            background: linear-gradient(to bottom, black, #1e1e1e);
-            color: #ffffff;
-          }
-          pre {
-            background-color: #252526;
-            color: #d4d4d4;
-            padding: 12px;
-            border-radius: 5px;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-          }
-          h2 { color: white; }
-          button {
-            padding: 10px 20px;
-            text-transform: uppercase;
-            border-radius: 8px;
-            font-size: 17px;
-            font-weight: 500;
-            color: #ffffff80;
-            background: transparent;
-            cursor: pointer;
-            border: 1px solid #ffffff80;
-            transition: 0.5s ease;
-            user-select: none;
-            margin-bottom: 15px; /* Added spacing below the button */
-          }
-          button:hover, :focus {
-            color: #ffffff;
-            background: #008cff;
-            border: 1px solid #008cff;
-            text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
-            box-shadow: 0 0 5px #008cff, 0 0 20px #008cff, 0 0 50px #008cff, 0 0 100px #008cff;
-          }
-          /* Styled Input Field */
-          input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 15px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: 1px solid #ffffff80;
-            background: #252526;
-            color: #ffffff;
-            outline: none;
-            transition: 0.3s ease;
-          }
-          input::placeholder {
-            color: #ffffff80;
-          }
-          input:focus {
-            border-color: #008cff;
-            box-shadow: 0 0 5px #008cff;
-          }
+        <html>
+          <head>
+            <style>
+              body {
+      font-family: Montserrat, sans-serif;
+      padding: 15px;
+      background: linear-gradient(to bottom, black, #1e1e1e);
+      color: #ffffff;
+    }
+
+    pre {
+      background: linear-gradient(to bottom, black, #1e1e1e);
+      color: #d4d4d4;
+      padding: 12px;
+      border-radius: 5px;
+      overflow-y: auto;
+      overflow-x: auto;
+      height: 800px;
+      width: 95%;
+      white-space: pre;
+      word-wrap: normal;
+    }
+
+    h2 {
+      color: white;
+    }
+
+    /* Button styling */
+    button {
+      padding: 6px 12px; /* Smaller and slimmer */
+      text-transform: uppercase;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #ffffff80;
+      background: transparent;
+      cursor: pointer;
+      border: 1px solid #ffffff80;
+      background: linear-gradient(to bottom, black, #1e1e1e);
+      transition: 0.5s ease;
+      user-select: none;
+      margin-bottom: 0; /* Removed extra spacing */\
+      position: sticky; bottom: 0;
+    }
+
+    button:hover, button:focus {
+      color: #ffffff;
+      background: linear-gradient(to bottom, black, rgb(65, 0, 61));
+      border: 1px solid rgb(16, 2, 85);
+    }
+    
+    /* Input field styling */
+    input {
+     /* Makes input wider */
+      flex:1;
+      
+      width:100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid rgb(64, 63, 63);
+      background: linear-gradient(to bottom, black, #1e1e1e);
+      color: #ffffff;
+      outline: none;
+      transition: 0.3s ease;
+      position: sticky; bottom: 0;
+      
+    }
+
+    input::placeholder {
+      color: rgba(198, 198, 198, 0.5);
+    }
+
+    input:focus {
+      border-color: rgb(5, 2, 71);
+      box-shadow: 0 0 5px rgb(43, 0, 41);
+    }
+
+    /* Align form and button horizontally */
+    .input-container {
+      display: flex;
+      
+      align-items: center;
+      gap: 10px; 
+    }
+
+    .input-container form {
+      flex: 1; 
+      width: 60vh;
+    }
+
         </style>
       </head>
-      <body>
-        <button onclick="copyToClipboard()">📋 Copy</button>
+      <body style="flex-direction: column; display: flex; height: 100%; overflow: hidden">
+        
         <h2>CodeGeass Response</h2>
         <pre id="response-content">${formattedResponse}</pre>
-        <form id="input-form">
-          <input type="text" id="user-input" placeholder="Ask any question?" required>
-        </form>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button onclick="copyToClipboard()">📋 Copy</button>
+          <form id="input-form">
+            <input type="text" id="user-input" placeholder="Ask any question?" required>
+          </form>
+        </div>
         <script>
           const vscode = acquireVsCodeApi();
 
