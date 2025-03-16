@@ -34,6 +34,32 @@ export function activate(context: vscode.ExtensionContext) {
 
       panel.webview.html = getLoadingHTML();
 
+      panel.webview.onDidReceiveMessage(async (message) => {
+        if (message.command === "callAPI") {
+          try {
+            if (!selectedText) {
+              vscode.window.showErrorMessage("No code selected or found in the document.");
+              return;
+            }
+      
+            const requestData = {
+              code: selectedText,
+              prompt: message.prompt, 
+            };
+      
+            panel.webview.html = getLoadingHTML(); 
+      
+            const response = await axios.post("https://utsav911911.pythonanywhere.com/api/generate/", requestData);
+            const apiResponse = response.data.response;
+      
+            panel.webview.html = getWebviewContent(apiResponse);
+          } catch (error: any) {
+            vscode.window.showErrorMessage(`Failed to fetch API data: ${error.message}`);
+          }
+        }
+      });
+      
+
       const response = await axios.post("https://utsav911911.pythonanywhere.com/api/generate/", requestData);
       const apiResponse = response.data.response;
 
@@ -130,8 +156,8 @@ function getWebviewContent(response: string): string {
     .replace(/\*(.*?)\*/g, '<i>$1</i>')
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     .replace(/\n/g, '<br>');
-
-  return `
+  
+    return `
     <html>
       <head>
         <style>
@@ -163,6 +189,7 @@ function getWebviewContent(response: string): string {
             border: 1px solid #ffffff80;
             transition: 0.5s ease;
             user-select: none;
+            margin-bottom: 15px; /* Added spacing below the button */
           }
           button:hover, :focus {
             color: #ffffff;
@@ -171,23 +198,70 @@ function getWebviewContent(response: string): string {
             text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
             box-shadow: 0 0 5px #008cff, 0 0 20px #008cff, 0 0 50px #008cff, 0 0 100px #008cff;
           }
+          /* Styled Input Field */
+          input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ffffff80;
+            background: #252526;
+            color: #ffffff;
+            outline: none;
+            transition: 0.3s ease;
+          }
+          input::placeholder {
+            color: #ffffff80;
+          }
+          input:focus {
+            border-color: #008cff;
+            box-shadow: 0 0 5px #008cff;
+          }
         </style>
       </head>
       <body>
+        <button onclick="copyToClipboard()">📋 Copy</button>
         <h2>CodeGeass Response</h2>
         <pre id="response-content">${formattedResponse}</pre>
-        <button onclick="copyToClipboard()">📋 Use Geass</button>
+        <form id="input-form">
+          <input type="text" id="user-input" placeholder="Ask any question?" required>
+        </form>
         <script>
+          const vscode = acquireVsCodeApi();
+
           function copyToClipboard() {
             const text = document.getElementById("response-content").innerText;
             navigator.clipboard.writeText(text);
             alert("Copied to clipboard!");
           }
+
+          document.getElementById("input-form").addEventListener("submit", function(event) {
+          event.preventDefault(); 
+
+          const userInput = document.getElementById("user-input").value;
+          const responseElement = document.getElementById("response-content");
+
+          if (!responseElement) {
+            alert("No content found to send!");
+            return;
+          }
+
+          const responseContent = responseElement.innerText.trim();
+
+          vscode.postMessage({ 
+            command: "callAPI", 
+            prompt: userInput, 
+            text: responseContent 
+          });
+        });
         </script>
       </body>
     </html>
   `;
+
 }
+
 
 
 export function deactivate() {}

@@ -1,71 +1,39 @@
-# codegeass README
+# CodeGeass Extension
 
-This is the README for your extension "codegeass". After writing up a brief description, we recommend including the following sections.
+## Overview
+**CodeGeass** is a powerful VS Code extension that enhances your coding experience by providing **AI-powered recommendations and analysis**. When you select a snippet of code, this extension calls an external API that utilizes a **large language model (LLM)** to analyze and suggest improvements based on best practices, efficiency, and readability.
 
 ## Features
+- **AI-Powered Code Analysis**: Get insights and explanations for selected code snippets.
+- **Code Recommendations**: Receive suggestions for improving code quality, efficiency, and readability.
+- **Seamless Integration**: Works directly within VS Code with a simple selection.
+- **Supports Multiple Languages**: Works with various programming languages like Python, JavaScript, C++, and more.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## Installation
+1. Install the extension from the **VS Code Marketplace** (or manually via `.vsix` file).
+2. Ensure **Node.js** is installed on your system.
+3. Run the following command to install dependencies:
+   ```sh
+   npm install
+   ```
 
-For example if there is an image subfolder under your extension project workspace:
+## Usage
+1. **Select a code snippet** in your VS Code editor.
+2. **click** on top-right button named `Use Geass` .
+3. The extension sends the snippet to the LLM API for analysis.
+4. View the suggestions and improvements in the output panel.
 
-\!\[feature X\]\(images/feature-x.png\)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Permissions
+This extension requires an internet connection to send code snippets to the AI model for analysis. No data is stored locally or shared beyond the configured API.
 
-## Requirements
+## Contribution
+Contributions are welcome! To contribute:
+1. Fork the repository.
+2. Create a new branch (`feature/new-feature`).
+3. Commit changes and push to GitHub.
+4. Open a pull request.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## Contact
+For support or feature requests, reach out via [GitHub Issues](https://github.com/utsav1072/CodeGeass/issues).
 
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
