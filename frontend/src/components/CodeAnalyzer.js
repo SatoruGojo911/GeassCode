@@ -28,18 +28,6 @@ const CodeAnalyzer = ({ code }) => {
     }, 3000);
   };
 
-  useEffect(() => {
-    if (responseText) {
-      setDisplayText(""); 
-      let index = 0;
-      const interval = setInterval(() => {
-        setDisplayText((prev) => prev + responseText[index]);
-        index++;
-        if (index === responseText.length) clearInterval(interval);
-      }, 10); 
-      return () => clearInterval(interval);
-    }
-  }, [responseText]);
 
   return (
     <div className="card">
@@ -48,9 +36,9 @@ const CodeAnalyzer = ({ code }) => {
           <div className="spinner">
             <div className="spinnerin"></div>
           </div>
-        ) : displayText ? (
+        ) : responseText ? (
           <div className="styled-response">
-            {displayText.slice(0, -9).split("\n").map((line, index) => (
+            {responseText.split("\n").map((line, index) => (
               <p key={index} className={line.startsWith("**") ? "bold-text" : ""}>
                 {line}
               </p>

@@ -142,10 +142,6 @@ function getLoadingHTML(): string {
 
 function getWebviewContent(response: string): string {
   const formattedResponse = response
-    .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
-    .replace(/\*(.*?)\*/g, '<i>$1</i>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/\n/g, '<br>');
   
     return `
         <html>
@@ -169,7 +165,7 @@ function getWebviewContent(response: string): string {
       border-radius: 5px;
       overflow-y: auto;
       overflow-x: auto;
-      height: 800px;
+      height: 80vh;
       width: 95%;
       white-space: pre;
       word-wrap: normal;
