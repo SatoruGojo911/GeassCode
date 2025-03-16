@@ -156,6 +156,10 @@ function getWebviewContent(response: string): string {
       padding: 15px;
       background: linear-gradient(to bottom, black, #1e1e1e);
       color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
     }
 
     pre {
@@ -236,20 +240,47 @@ function getWebviewContent(response: string): string {
 
     .input-container form {
       flex: 1; 
-      width: 60vh;
+      width: 80vw;
     }
 
         </style>
       </head>
-      <body style="flex-direction: column; display: flex; height: 100%; overflow: hidden">
+      <body>
         
         <h2>CodeGeass Response</h2>
         <pre id="response-content">${formattedResponse}</pre>
-        <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    position: fixed; 
+    bottom: 0; 
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 95vw; 
+    max-width: 1200px; /* Optional: Limits the max width on larger screens */
+    padding: 10px;
+    background: rgba(0, 0, 0, 1); 
+    border-radius: 10px; /* Optional: Rounded corners */
+    justify-content: center; /* Ensures content is centered inside */
+">
           <button onclick="copyToClipboard()">📋 Copy</button>
-          <form id="input-form">
-            <input type="text" id="user-input" placeholder="Ask any question?" required>
-          </form>
+          <form id="input-form" style="
+    width: 80vw; 
+    max-width: 500px; 
+    margin: 0 auto; 
+    display: flex;
+">
+    <input type="text" id="user-input" placeholder="Ask any question?" required style="
+        flex: 1; 
+        padding: 10px; 
+        font-size: 16px; 
+        border: 1px solid #ccc; 
+        border-radius: 5px;
+        width: 90%;
+    ">
+</form>
+
         </div>
         <script>
           const vscode = acquireVsCodeApi();

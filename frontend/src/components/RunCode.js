@@ -12,7 +12,7 @@ const RunCode = ({ code, language }) => {
     setResponseText("");
 
     const languageMap = {
-      "c++": 52,
+      "cpp": 52,
       "python": 71,
       "c": 50,
       "java": 62,
