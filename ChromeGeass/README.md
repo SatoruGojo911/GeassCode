@@ -1,10 +1,39 @@
-# Getting Started With Google Chrome Extensions (Hello World)
+# Chrome Extension Installation Guide
 
-This example demonstrates how to create a simple "Hello World" Chrome Extension.
-For more details, visit the [official tutorial](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world).
+## Download & Install
 
-## Running This Extension
+Follow these steps to install the Chrome extension from GitHub (without publishing it to the Chrome Web Store).
 
-1. Clone this repository.
-2. Load this directory in Chrome as an [unpacked extension](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked).
-3. Click the extension icon in the Chrome toolbar, then select the "Hello Extensions" extension. A popup will appear displaying the text "Hello Extensions".
+### 1️ Download the Extension
+
+- Go to the GitHub repository: [(https://github.com/utsav1072/CodeGeass/tree/main/ChromeGeass)]
+- Click **Code** → **Download ZIP**
+- Extract the ZIP file on your computer
+
+### 2️ Load the Extension in Chrome
+
+- Open Google Chrome
+- Go to `chrome://extensions/`
+- Enable **Developer Mode** (toggle in the top right corner)
+- Click **Load unpacked**
+- Select the extracted folder containing `manifest.json`
+
+The extension will now be installed and appear in the toolbar.
+
+### 3️ Using the Extension
+
+- Click the extension icon in the toolbar to open the popup
+- If the extension interacts with specific websites (like LeetCode), ensure it has the correct permissions in `manifest.json`
+
+### 4️ Updating the Extension
+
+If a new version is available:
+- Delete the old version from `chrome://extensions/`
+- Re-download and extract the latest ZIP from GitHub
+- Reload it using **"Load unpacked"**
+
+## Troubleshooting
+
+- **Extension not appearing?** Ensure Developer Mode is enabled and `manifest.json` is present.
+- **Permission issues?** Check Chrome's settings to allow necessary permissions.
+- **Errors in console?** Open Chrome Developer Tools (F12 → Console) to debug.
