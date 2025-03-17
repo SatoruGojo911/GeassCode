@@ -170,8 +170,7 @@ Follow these steps to install the Chrome extension from GitHub (without publishi
 ### 1️ Download the Extension
 
 - Go to the GitHub repository: [(https://github.com/utsav1072/CodeGeass/tree/main/ChromeGeass)]
-- Click **Code** → **Download ZIP**
-- Extract the ZIP file on your computer
+- run `git clone https://github.com/utsav1072/CodeGeass/tree/main/CodeGeassExtention`
 
 ### 2️ Load the Extension in Chrome
 
