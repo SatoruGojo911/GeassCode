@@ -8,10 +8,24 @@
 </head>
 <body>
     <h1>Code Geass</h1>
+
+    <!-- Code Analysis Section -->
     <div id="message-container" class="card">
-      <p id="message">Response should appear here</p>
-  </div>
-    <button id="clickButton" class="use-geass-button">UseGeass</button>
+        <p id="message">Response should appear here</p>
+    </div>
+    <button id="clickButton" class="use-geass-button">Use Geass</button>
+
+    <!-- Chat Section (Hidden Initially) -->
+    <div id="chat-wrapper" class="hidden">
+        <div id="chat-container" class="card">
+            <div id="chat-messages"></div>
+        </div>
+        <div class="chat-input-container">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Type a message...">
+            <button id="sendButton" class="use-geass-button">Send</button>
+        </div>
+    </div>
+
     <script src="popup.js" defer></script>
 </body>
 </html>
