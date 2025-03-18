@@ -67,6 +67,9 @@ body {
 
 /* Responsive Design for Small Screens (Phones & Small Tablets) */
 @media (max-width: 768px) {
+  body {
+    overflow: auto; /* Prevents accidental scrolling */
+  }
   .main-container {
     flex-direction: column;
     height: auto;
@@ -76,7 +79,7 @@ body {
   .editor-container,
   .analyzer-container {
     width: 100%;
-    max-height: 60vh; /* Prevents excessive height usage */
+    max-height: auto; /* Prevents excessive height usage */
     overflow: auto; /* Allows scrolling inside each section */
   }
 
