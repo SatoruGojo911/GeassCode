@@ -51,6 +51,24 @@ body {
   overflow: auto;
   max-height: 100%;
 }
+.toggle-btn {
+  display: none;
+  position: fixed;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, #000000, #1e1e1e);
+  color: #fff;
+  border: solid #404c5d 1px;
+  box-shadow: -1px -5px 15px #41465b, 5px 5px 15px #41465b,
+        inset 5px 5px 10px #212121, inset -5px -5px 10px #212121;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
 
 /* Responsive Design for Tablets (max-width: 1024px) */
 @media (max-width: 1024px) {
@@ -72,20 +90,23 @@ body {
   }
   .main-container {
     flex-direction: column;
-    height: auto;
+    height:100vh;
     padding: 5px; /* Reduce padding to fit small screens */
   }
 
   .editor-container,
   .analyzer-container {
     width: 100%;
-    max-height: auto; /* Prevents excessive height usage */
+    height: 90vh; /* Prevents excessive height usage */
     overflow: auto; /* Allows scrolling inside each section */
   }
 
   .editor-wrapper {
     margin: 5px; /* Reduce margin for better fit */
     border-radius: 5px; /* Slightly smaller rounded corners */
+  }
+  .toggle-btn {
+    display: block;
   }
 }
 .run-code-container {
