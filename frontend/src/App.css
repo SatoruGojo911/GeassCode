@@ -55,7 +55,7 @@ body {
   display: none;
   position: fixed;
   bottom: 5%;
-  left: 50%;
+  left: 20%;
   transform: translateX(-50%);
   background: linear-gradient(to right, #000000, #1e1e1e);
   color: #fff;
