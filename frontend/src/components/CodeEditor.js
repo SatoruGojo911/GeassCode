@@ -1,9 +1,9 @@
-import React,{ useState} from "react";
+import React, { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import "../App.css";
 
 const CodeEditor = ({ language, code, setCode }) => {
-  const boilerplate = () => {
+  useEffect(() => {
     const templates = {
       "cpp": `#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Hello, World!";\n    return 0;\n}`,
       "java": `public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}`,
@@ -13,9 +13,8 @@ const CodeEditor = ({ language, code, setCode }) => {
     };
 
     setCode(templates[language] || "// Unsupported language");
-  };
+  }, [language, setCode]);
 
-  boilerplate();
   return (
     <div className="editor-wrapper">
       <Editor
